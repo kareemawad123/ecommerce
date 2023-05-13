@@ -1,0 +1,93 @@
+<div class="dropdown mb-2">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    {{catSelected}}
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <ng-container *ngFor="let cat of category">
+      <li><button class="dropdown-item" (click)="changeDropValue(cat)">{{cat.name}}</button></li>
+    </ng-container>
+  </ul>
+</div>
+
+<ng-container *ngFor="let product of filterProduct">
+  <div id="product" class="col-sm-4 col-lg-3">
+    <div class="thumb-wrapper" pStyle
+      [ngStyle]="{'border': product.quantity == 1? '1px solid yellow': '1px solid transparent'}">
+      <span class="wish-icon"><i id="favorites" (click)="favoriteFunc($event)" class="fa-regular fa-heart"></i></span>
+      <div class="img-box">
+        <img [src]="product.img" class="img-responsive" alt="">
+      </div>
+      <div class="thumb-content">
+        <div id="scroll-container">
+          <h6 id="scroll-text">{{product.name}}</h6>
+        </div>
+        <p class="item-cate"><b>{{product.categoryId.name}}</b></p>
+        <div class="row">
+          <p class="item-cate col"><b>{{stockFunc(product)}}</b></p>
+          <div class="col">
+            <p class="item-cate " *ngIf="product.descount != 'No Discount' "><b>Discount: {{product.descount}}</b></p>
+          </div>
+        </div>
+        <p class="item-price" [ngClass]="product.quantity ==1? 'ng-danger':''"><b>{{product.price|currency}}</b></p>
+        <div class="row">
+          <div class="col"><button href="#" class="btn btn-primary" [disabled]="product.quantity ==0">Add to
+              Cart</button></div>
+          <div class="col"><button href="#" [disabled]="product.quantity ==0" class="btn btn-primary"
+              (click)="BuyFunc(product)">Buy</button></div>
+        </div>
+        <ng-template>
+          <p>Ng Template contents</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<!-- <div class="card">
+  <div class="card-body row">
+    <img src="{{product1.img}}" class="col-lg-3">
+    <div class="col-lg-9 card-content">
+      <h3>{{product1.name}}</h3>
+      <div class="row">
+        <h5 class="col-3">Quantity: {{product1.quantity}},</h5>
+        <h5 class="col">Brand: {{product1.categoryId.name}},</h5>
+      </div>
+      <div class="row">
+        <h5 class="col-3">Price: ${{product1.price}}</h5>
+        <h5 class="col">Discount: {{discount10}}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body row">
+    <img src="{{product2.img}}" class="col-lg-3">
+    <div class="col-lg-9 card-content">
+      <h3>{{product2.name}}</h3>
+      <div class="row">
+        <h5 class="col-3">Quantity: {{product2.quantity}},</h5>
+        <h5 class="col">Brand: {{product2.categoryId.name}},</h5>
+      </div>
+      <div class="row">
+        <h5 class="col-3">Price: ${{product2.price}}</h5>
+        <h5 class="col">Discount: {{noDiscount}}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body row">
+    <img src="{{product3.img}}" class="col-lg-3">
+    <div class="col-lg-9 card-content">
+      <h3>{{product3.name}}</h3>
+      <div class="row">
+        <h5 class="col-3">Quantity: {{product3.quantity}},</h5>
+        <h5 class="col">Brand: {{product3.categoryId.name}},</h5>
+      </div>
+      <div class="row">
+        <h5 class="col-3">Price: ${{product3.price}}</h5>
+        <h5 class="col">Discount: {{discount15}}</h5>
+      </div>
+    </div>
+  </div>
+</div> -->

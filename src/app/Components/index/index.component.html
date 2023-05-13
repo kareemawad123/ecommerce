@@ -1,0 +1,15 @@
+<ng-container *ngFor="let store of stores">
+  <div class="row" id="large-row">
+    <div class="card m-md-1 b-lg-0 m-sm-1" pStyle style="width: 13.5rem;">
+      <img src="{{store.storeLogo}}" class="card-img-top" alt="Amazon Logo">
+      <div class="card-body">
+        <h5 class="card-title">{{store.storeName}}</h5>
+        <p class="card-text">Branches:</p>
+        <ul>
+          <li *ngFor="let branch of store.storeBranches">{{branch}},</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Go to store</a>
+      </div>
+    </div>
+  </div>
+</ng-container>

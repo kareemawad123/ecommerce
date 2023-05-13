@@ -1,0 +1,22 @@
+
+.card{
+  margin-bottom: 0.5rem !important;
+  margin-top: 0px !important;
+}
+#large-row{
+  margin-left: 0px;
+  margin-right: 0px;
+  justify-content: center;
+}
+.card-body p{
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 0.1rem;
+}
+.card-body li{
+  display: inline;
+  margin-right: 0.4rem;
+}
+.card-body ul{
+padding-left: 0px;
+}
