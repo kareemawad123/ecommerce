@@ -12,6 +12,8 @@ import { ContentComponent } from './Components/content/content.component';
 import { PShadowDirective } from './directives/p-shadow.directive';
 import { FormsModule } from '@angular/forms';
 import { CreditFormat } from './Custom pipe/credit-format';
+import { MainContentComponent } from './Components/main-content/main-content.component';
+import { CartTableComponent } from './Components/cart-table/cart-table.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { CreditFormat } from './Custom pipe/credit-format';
     ContentComponent,
     PShadowDirective,
     CreditFormat,
+    MainContentComponent,
+    CartTableComponent,
   ],
   imports: [
     BrowserModule,
