@@ -7,7 +7,7 @@ import { ICategory } from '../Models/icategory';
   providedIn: 'root'
 })
 export class ProductsService {
- category: ICategory[] = [
+ category : ICategory[] = [
     {
       id: 1,
       name: "Shoes"
