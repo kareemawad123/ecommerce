@@ -11,11 +11,12 @@
 
 <ng-container *ngFor="let product of filterProduct">
   <div id="product" class="col-sm-4 col-lg-3">
-    <div class="thumb-wrapper" pStyle
+    <div class="thumb-wrapper" pStyle raduis1="6px"
       [ngStyle]="{'border': product.quantity == 1? '1px solid yellow': '1px solid transparent'}">
       <span class="wish-icon"><i id="favorites" (click)="favoriteFunc($event)" class="fa-regular fa-heart"></i></span>
       <div class="img-box">
-        <img [src]="product.img" class="img-responsive" alt="">
+        <a class="" (click)="goToDetail(product.id)"><img [src]="product.img" class="img-responsive"></a>
+
       </div>
       <div class="thumb-content">
         <div id="scroll-container">
@@ -30,7 +31,8 @@
         </div>
         <p class="item-price" [ngClass]="product.quantity ==1? 'ng-danger':''"><b>{{product.price|currency}}</b></p>
         <div class="row">
-          <div class="col"><button (click)="addToCartFunc(product)" class="btn btn-primary" [disabled]="product.quantity ==0">Add to
+          <div class="col"><button (click)="addToCartFunc(product)" class="btn btn-primary"
+              [disabled]="product.quantity ==0">Add to
               Cart</button></div>
           <div class="col"><button href="#" [disabled]="product.quantity ==0" class="btn btn-primary"
               (click)="BuyFunc(product)">Buy</button></div>

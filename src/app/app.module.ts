@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 import { CreditFormat } from './Custom pipe/credit-format';
 import { MainContentComponent } from './Components/main-content/main-content.component';
 import { CartTableComponent } from './Components/cart-table/cart-table.component';
+import { NotFoundPageComponent } from './Components/not-found-page/not-found-page.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
+import { GroupOfRoutesComponent } from './Components/group-of-routes/group-of-routes.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { CartTableComponent } from './Components/cart-table/cart-table.component
     CreditFormat,
     MainContentComponent,
     CartTableComponent,
+    NotFoundPageComponent,
+    ProductDetailsComponent,
+    GroupOfRoutesComponent,
   ],
   imports: [
     BrowserModule,

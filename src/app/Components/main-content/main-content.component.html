@@ -1,50 +1,57 @@
-<div class="row" id="row-control">
-  <div class="dropdown mb-2 col-md-3">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      {{catValue.name}}
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <ng-container *ngFor="let cat of category">
-        <li><button class="dropdown-item" (click)="changeDropValue(cat)">{{cat.name}}</button></li>
-      </ng-container>
-    </ul>
+<div class="row products">
+  <app-index class="col-lg-2 col-sm-12s"></app-index>
+  <div class="col row">
+    <div class="row" id="row-control">
+      <div class="dropdown mb-2 col-md-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{catValue.name}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ng-container *ngFor="let cat of category">
+            <li><button class="dropdown-item" (click)="changeDropValue(cat)">{{cat.name}}</button></li>
+          </ng-container>
+        </ul>
+      </div>
+      <label for="text" class="col-md-2 mt-1">Filter by price: </label>
+      <div class="col-md-4 d-flex">
+        <input type="number" min="0" class="form-control" [(ngModel)]="filterdValue">
+      </div>
+      <!-- <h4>Filter: {{filterdValue}}</h4> -->
+    </div>
+    <app-content class="row" [priceFel]="filterdValue" [categorySelected]="catValue"
+    (newCartProductEvent)="addToCart($event)"
+    (newCartQuantityEvent)="addQuantity($event)"
+    ></app-content>
+    <!-- <app-cart-table class="row"></app-cart-table> -->
+    <div class="row cart-section" *ngIf="cartProduct.length>0">
+      <h2 class="col">Your Cart:</h2>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let cart of cartProduct">
+            <tr>
+              <th scope="row">1</th>
+              <td>{{cart.name}}</td>
+              <td>{{cart.price|currency}}</td>
+              <td>{{getProductCartQuantity(cart)}}</td>
+              <td>{{getProductCartQuantity(cart)*cart.price|currency}}</td>
+              <td><button class="btn" (click)="deleteFromCart(cart)"><i class="fa-solid fa-trash"></i></button></td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <label for="text" class="col-md-2 mt-1">Filter by price: </label>
-  <div class="col-md-4 d-flex">
-    <input type="number" min="0" class="form-control" [(ngModel)]="filterdValue">
-  </div>
-  <!-- <h4>Filter: {{filterdValue}}</h4> -->
 </div>
-<app-content class="row" [priceFel]="filterdValue" [categorySelected]="catValue"
-(newCartProductEvent)="addToCart($event)"
-(newCartQuantityEvent)="addQuantity($event)"
-></app-content>
-<!-- <app-cart-table class="row"></app-cart-table> -->
-<div class="row cart-section" *ngIf="cartProduct.length>0">
-  <h2 class="col">Your Cart:</h2>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Total Price</th>
-        <th scope="col">Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let cart of cartProduct">
-        <tr>
-          <th scope="row">1</th>
-          <td>{{cart.name}}</td>
-          <td>{{cart.price}}</td>
-          <td>{{getProductCartQuantity(cart)}}</td>
-          <td>{{getProductCartQuantity(cart)*cart.price}}</td>
-          <td><button class="btn" (click)="deleteFromCart(cart)"><i class="fa-solid fa-trash"></i></button></td>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-</div>
+
+

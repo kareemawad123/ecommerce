@@ -21,12 +21,14 @@ export class ProductsService {
       name: "TVs"
     },
   ]
-  productList: IProduct[] = []
+  productList: IProduct[] = [];
+  arrOfProductIds: number[] =[]
   constructor() {
     this.productList = [
       {
         id: 103050,
         name: "Adidas Mens Nebzed Super",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
         quantity: 1,
         price: 300,
         img: "assets/adidas1.jpg",
@@ -36,6 +38,7 @@ export class ProductsService {
       {
         id: 105036,
         name: "Apple 2023 MacBook Pro",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
         quantity: 6,
         price: 8000,
         img: "assets/apple1.jpg",
@@ -45,6 +48,8 @@ export class ProductsService {
       {
         id: 105037,
         name: "Calvin Klein Men's Brodie Oxford",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+
         quantity: 0,
         price: 500,
         img: "assets/calvin2.jpg",
@@ -54,6 +59,8 @@ export class ProductsService {
       {
         id: 105038,
         name: "UHD 4K TV 43 Inch UQ7500 Series",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+
         quantity: 10,
         price: 1000,
         img: "assets/tv1.png",
@@ -63,6 +70,8 @@ export class ProductsService {
       {
         id: 105039,
         name: "ASUS Zenbook 13 OLED UX325EA",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+
         quantity: 10,
         price: 1500,
         img: "assets/asus1.jpg",
@@ -72,6 +81,8 @@ export class ProductsService {
       {
         id: 105040,
         name: "Adidas bounce shoes running shoes for men",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+
         quantity: 0,
         price: 450,
         img: "assets/adidas2.jpg",
@@ -79,6 +90,30 @@ export class ProductsService {
         descount: DiscountOffers.NODISCOUNT,
       },
     ];
-
+    this.arrOfProductIds = this.productList.map((product) =>{
+      return product.id;
+    })
    }
+   getProducts(): IProduct[] {
+     return this.productList;
+   }
+   getOneProduct(id:number): IProduct | undefined {
+     return this.productList.find(p => p.id === id);
+   }
+   getProductsByCatId(id:number): IProduct[] | undefined {
+     return this.productList.filter(p=> p.categoryId.id == id);
+   }
+   checkProductId(id:number): boolean {
+    let flag = false;
+    this.productList.forEach(p => {
+      if (p.id === id) {
+        flag = true;
+      }
+    });
+    return flag;
+   }
+   addProduct(product: IProduct) {
+     this.productList.push(product);
+   }
+
 }
