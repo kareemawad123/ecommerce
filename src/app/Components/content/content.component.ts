@@ -47,9 +47,13 @@ export class ContentComponent implements OnInit {
     this.filterCategory(this.catSelected);
   }
   filterCategory(cat: ICategory) {
-    this.filterProduct = this.prdService.productList.filter(p => {
-      return p.categoryId == cat;
-    })
+    if(cat == this.prdService.category[0]){
+      this.filterProduct = this.prdService.productList;
+    }else{
+      this.filterProduct = this.prdService.productList.filter(p => {
+        return p.categoryId == cat;
+      })
+    }
   }
 
   category: ICategory[] = this.prdService.category;

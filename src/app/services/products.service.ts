@@ -9,6 +9,10 @@ import { ICategory } from '../Models/icategory';
 export class ProductsService {
  category : ICategory[] = [
     {
+      id: 0,
+      name: "All"
+    },
+    {
       id: 1,
       name: "Shoes"
     },
@@ -32,7 +36,7 @@ export class ProductsService {
         quantity: 1,
         price: 300,
         img: "assets/adidas1.jpg",
-        categoryId: this.category[0],
+        categoryId: this.category[1],
         descount: DiscountOffers.DISCOUNT10,
       },
       {
@@ -42,7 +46,7 @@ export class ProductsService {
         quantity: 6,
         price: 8000,
         img: "assets/apple1.jpg",
-        categoryId: this.category[1],
+        categoryId: this.category[2],
         descount: DiscountOffers.DISCOUNT10,
       },
       {
@@ -53,7 +57,7 @@ export class ProductsService {
         quantity: 0,
         price: 500,
         img: "assets/calvin2.jpg",
-        categoryId: this.category[0],
+        categoryId: this.category[1],
         descount: DiscountOffers.NODISCOUNT,
       },
       {
@@ -64,7 +68,7 @@ export class ProductsService {
         quantity: 10,
         price: 1000,
         img: "assets/tv1.png",
-        categoryId: this.category[2],
+        categoryId: this.category[3],
         descount: DiscountOffers.DISCOUNT15,
       },
       {
@@ -75,19 +79,58 @@ export class ProductsService {
         quantity: 10,
         price: 1500,
         img: "assets/asus1.jpg",
-        categoryId: this.category[1],
+        categoryId: this.category[2],
         descount: DiscountOffers.DISCOUNT10,
       },
       {
         id: 105040,
         name: "Adidas bounce shoes running shoes for men",
         discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
-
         quantity: 0,
         price: 450,
         img: "assets/adidas2.jpg",
-        categoryId: this.category[0],
+        categoryId: this.category[1],
         descount: DiscountOffers.NODISCOUNT,
+      },
+      {
+        id: 105041,
+        name: "Samsung 32 Inch HD Smart LED TV ",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+        quantity: 5,
+        price: 1200,
+        img: "https://m.media-amazon.com/images/I/71iOlIb-3FL._AC_SX679_.jpg",
+        categoryId: this.category[3],
+        descount: DiscountOffers.DISCOUNT10,
+      },
+      {
+        id: 105042,
+        name: "Jac 43 Inch LED Smart TV Black",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+        quantity: 8,
+        price: 1500,
+        img: "https://m.media-amazon.com/images/I/61mkbdLT+6S._AC_SX679_.jpg",
+        categoryId: this.category[3],
+        descount: DiscountOffers.DISCOUNT15,
+      },
+      {
+        id: 105043,
+        name: "Samsung 43 Inch 4K UHD Smart LED TV",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+        quantity: 12,
+        price: 1999,
+        img: "https://m.media-amazon.com/images/I/41Ac27HbDDL._AC_SX679_.jpg",
+        categoryId: this.category[3],
+        descount: DiscountOffers.DISCOUNT15,
+      },
+      {
+        id: 105044 ,
+        name: "Samsung 43 Inch Full HD Smart LED TV",
+        discriptions: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, ut. Assumenda tempora vitae itaque. Ducimus, adipisci commodi quae quod accusamus soluta saepe dolores, voluptate, quos ipsa velit nisi id dolorum?',
+        quantity: 3,
+        price: 1700,
+        img: "https://m.media-amazon.com/images/I/61DOcUmc0EL._AC_SX679_.jpg",
+        categoryId: this.category[3],
+        descount: DiscountOffers.DISCOUNT15,
       },
     ];
     this.arrOfProductIds = this.productList.map((product) =>{

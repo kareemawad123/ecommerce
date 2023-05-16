@@ -1,10 +1,14 @@
 <div class="row products">
   <app-index class="col-lg-2 col-sm-12s"></app-index>
+
   <div class="col row">
     <div class="row" id="row-control">
+
+
+      <!-- Dropdown List filter -->
       <div class="dropdown mb-2 col-md-3">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-          aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
           {{catValue.name}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -13,6 +17,7 @@
           </ng-container>
         </ul>
       </div>
+      <!-- Filter by price -->
       <label for="text" class="col-md-2 mt-1">Filter by price: </label>
       <div class="col-md-4 d-flex">
         <input type="number" min="0" class="form-control" [(ngModel)]="filterdValue">
@@ -20,9 +25,7 @@
       <!-- <h4>Filter: {{filterdValue}}</h4> -->
     </div>
     <app-content class="row" [priceFel]="filterdValue" [categorySelected]="catValue"
-    (newCartProductEvent)="addToCart($event)"
-    (newCartQuantityEvent)="addQuantity($event)"
-    ></app-content>
+      (newCartProductEvent)="addToCart($event)" (newCartQuantityEvent)="addQuantity($event)"></app-content>
     <!-- <app-cart-table class="row"></app-cart-table> -->
     <div class="row cart-section" *ngIf="cartProduct.length>0">
       <h2 class="col">Your Cart:</h2>
@@ -53,5 +56,3 @@
     </div>
   </div>
 </div>
-
-
