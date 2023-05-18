@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct } from 'src/app/Models/iproduct';
+import { CategoryAPIService } from 'src/app/services/category-api.service';
+import { ProductsWithApiService } from 'src/app/services/products-with-api.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -9,8 +11,8 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  constructor(private prdService: ProductsService, private activeRoute: ActivatedRoute
-    , private router: Router) {
+  constructor(private prdService: ProductsService, private activeRoute: ActivatedRoute, private catApiService: CategoryAPIService
+    , private router: Router,private prdApiService: ProductsWithApiService) {
 
   }
   prdId: number = 0;
@@ -27,12 +29,28 @@ export class ProductDetailsComponent implements OnInit {
     // let prd = this.prdService.getProductsByCatId(1);
     // console.log(prd);
 
-    // console.log(this.prdService.arrOfProductIds);
+    // console.log(this.prdApiService.arrOfProductIds);
     // console.log(this.prdService.getOneProduct(this.prdId));
-    this.arrOfProductIds = this.prdService.arrOfProductIds;
-    console.log(this.arrOfProductIds);
 
+    this.prdApiService.getAllProductsAPI().subscribe({
+      next: (data) => {
+        // console.log(data);
+        this.arrOfProductIds = data.map((product) =>{
+          return product.id;
+        });
+        console.log(this.arrOfProductIds);
+      },
+      error: (err) => {
+        console.log(`Get CAT From API Error: ${err}`);
+      }
+    })
+    // console.log(this.arrOfProductIds);
   }
+
+  getCatName(number: number): string {
+    return this.catApiService.getCategoryName(number)
+  }
+
   goToPreviousProduct() {
     this.currentIndex = this.arrOfProductIds.indexOf(this.prdId);
     if (this.currentIndex > 0) {

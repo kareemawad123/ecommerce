@@ -22,11 +22,11 @@
         <div id="scroll-container">
           <h6 id="scroll-text">{{product.name}}</h6>
         </div>
-        <p class="item-cate"><b>{{product.categoryId.name}}</b></p>
+        <p class="item-cate"><b>{{getCategoryName(product.categoryId)}}</b></p>
         <div class="row">
           <p class="item-cate col"><b>{{stockFunc(product)}}</b></p>
           <div class="col">
-            <p class="item-cate " *ngIf="product.descount != 'No Discount' "><b>Discount: {{product.descount}}</b></p>
+            <p class="item-cate " *ngIf="product.descount != 0 "><b>Discount: {{product.descount/100|percent:'2.0-5'}}</b></p>
           </div>
         </div>
         <p class="item-price" [ngClass]="product.quantity ==1? 'ng-danger':''"><b>{{product.price|currency}}</b></p>

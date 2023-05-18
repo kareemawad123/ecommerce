@@ -17,6 +17,9 @@ import { CartTableComponent } from './Components/cart-table/cart-table.component
 import { NotFoundPageComponent } from './Components/not-found-page/not-found-page.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { GroupOfRoutesComponent } from './Components/group-of-routes/group-of-routes.component';
+import { ObservablesAndOperatorsComponent } from './observables-and-operators/observables-and-operators.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -34,11 +37,14 @@ import { GroupOfRoutesComponent } from './Components/group-of-routes/group-of-ro
     NotFoundPageComponent,
     ProductDetailsComponent,
     GroupOfRoutesComponent,
+    ObservablesAndOperatorsComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

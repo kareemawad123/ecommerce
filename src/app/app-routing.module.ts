@@ -4,6 +4,7 @@ import { NotFoundPageComponent } from './Components/not-found-page/not-found-pag
 import { MainContentComponent } from './Components/main-content/main-content.component';
 import { GroupOfRoutesComponent } from './Components/group-of-routes/group-of-routes.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
+import { ObservablesAndOperatorsComponent } from './observables-and-operators/observables-and-operators.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/group/Home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'prd/:id', component: ProductDetailsComponent, title: 'Product Details' },
     ]
   },
+  { path: 'observable&opretors', component:ObservablesAndOperatorsComponent,  title:'Observable & Operator'},
   // { path: 'prd/:id', component: ProductDetailsComponent, title: 'Product Details' },
   {
     path: 'buy',

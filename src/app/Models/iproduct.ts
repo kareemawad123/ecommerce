@@ -8,6 +8,6 @@ export interface IProduct {
   quantity: number,
   price: number,
   img: string,
-  categoryId: ICategory,
-  descount: DiscountOffers,
+  categoryId: number,
+  descount: number,
 }

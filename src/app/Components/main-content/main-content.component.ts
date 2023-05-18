@@ -1,24 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/Models/icategory';
 import { IProduct } from 'src/app/Models/iproduct';
+import { ProductsWithApiService } from 'src/app/services/products-with-api.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { CategoryAPIService } from 'src/app/services/category-api.service';
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss']
 })
-export class MainContentComponent {
-  constructor(private prdService: ProductsService) {
+export class MainContentComponent implements OnInit{
+  constructor(private prdService: ProductsService, private prdApiService: ProductsWithApiService,private catApiService: CategoryAPIService) {
 
+  }
+  ngOnInit(): void {
+    this.catApiService.getAllCategoriesAPI().subscribe({
+      next: (data) => {
+        this.category = data;
+      },
+      error: (err) => {
+        console.log(`Get CAT From API Error: ${err}`);
+      }
+    });
   }
   // Filter
   filterdValue: number = 0;
-  category: ICategory[] = this.prdService.category;
+  category: ICategory[] = [];
   catValue: ICategory = { id: 5000, name: "Chosen category" };
   changeDropValue(cat: ICategory) {
     //set Dropdown value
     this.catValue = cat;
+    console.log(cat.name);
+
   }
   // Table display cart
   cartProduct: IProduct[] = [];
