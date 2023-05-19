@@ -25,8 +25,8 @@ export class CategoryAPIService implements OnInit {
   };
   category: ICategory[] = [];
   getCategoryName(id: number): string {
-    let catName = this.category.find(c => c.id == id)
-    return catName!.name;
+    let catName: any = this.category.find(c => c.id == id)
+    return catName?.name;
   };
   // Get All Categories
   getAllCategoriesAPI(): Observable<ICategory[]> {

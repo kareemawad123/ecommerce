@@ -27,6 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('src/app/Components/user-view-module/user-view-module.module')
       .then(m => m.UserViewModuleModule),
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('src/app/Components/admin-view-module/admin-view-module.module')
+      .then(m => m.AdminViewModuleModule),
+  },
 
   { path: '**', component: NotFoundPageComponent, title: 'Not Found Page' },
 ];

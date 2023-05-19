@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DiscountOffers } from 'src/app/Models/discount-offers';
+// import { DiscountOffers } from 'src/app/Models/discount-offers';
 import { ICategory } from 'src/app/Models/icategory';
 import { IProduct } from 'src/app/Models/iproduct';
-import { Store } from 'src/app/Models/store';
+// import { Store } from 'src/app/Models/store';
 import { CartServiceService } from 'src/app/services/cart-service.service';
 import { CategoryAPIService } from 'src/app/services/category-api.service';
 import { ProductsWithApiService } from 'src/app/services/products-with-api.service';
@@ -17,6 +17,10 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ContentComponent implements OnInit {
   productList: IProduct[] = [];
+  category: ICategory[] = [];
+  filterProduct: IProduct[] = [];
+  clientName: string = "Kareem SmeTh";
+
   ngOnInit(): void {
     // this.filterProduct = this.prdService.productList;
     this.prdApiService.getAllProductsAPI().subscribe({
@@ -36,7 +40,6 @@ export class ContentComponent implements OnInit {
         console.log(`Get CAT From API Error: ${err}`);
       }
     });
-
   }
   constructor(private prdService: ProductsService, private cart: CartServiceService, private catApiService: CategoryAPIService,
     private router: Router, private prdApiService: ProductsWithApiService, private httpClient: HttpClient) {
@@ -54,9 +57,9 @@ export class ContentComponent implements OnInit {
   filterPrice(price: number): IProduct[] {
     // console.log(price);
     if (price == 0 || price == null) {
-      return this.prdService.productList;
+      return this.productList;
     }
-    return this.prdService.productList.filter(p => p.price <= price);
+    return this.productList.filter(p => p.price <= price);
   }
 
   //Filter by category from parent
@@ -66,26 +69,27 @@ export class ContentComponent implements OnInit {
   }
   set categorySelected(value: ICategory) {
     this.catSelected = value;
-    console.log("cat "+value.name);
+    console.log("cat " + value.name);
     this.filterCategory(this.catSelected);
   }
   filterCategory(cat: ICategory) {
-    console.log("catFilter "+cat.name);
-    if (cat.id == this.category[0].id) {
-        this.filterProduct = this.productList;
+    console.log("catFilter " + cat.name);
+    if (cat.id == this.category[0]?.id) {
+      this.filterProduct = this.productList;
     } else {
       this.filterProduct = this.productList.filter(p => {
         return p.categoryId == cat.id;
       })
     }
   }
-  getCategoryName(id:number):string{
-    let catName = this.category.find(c => c.id == id)
-    return catName!.name;
+
+  // Get category name
+  getCategoryName(id: number): string {
+    let catName: any = this.category?.find(c => c.id == id)
+    return catName?.name;
   }
-  category: ICategory[] = [];
-  filterProduct: IProduct[] = [];
-  clientName: string = "Kareem SmeTh";
+
+  // Stock Functionality
   stockFunc(product: IProduct): string {
     switch (product.quantity) {
       case 0: {
@@ -102,7 +106,8 @@ export class ContentComponent implements OnInit {
       }
     }
   }
-  flag: boolean = true;
+
+  // Favorite fanctionality
   favoriteFunc(event: any): void {
     console.log("SS");
     console.log(event.target.getAttribute('class'));
@@ -113,13 +118,16 @@ export class ContentComponent implements OnInit {
       fav?.setAttribute('class', "fa-regular fa-heart");
     }
   }
+
+  // Buy functionality
   BuyFunc(product: IProduct) {
     product.quantity--;
     console.log(product.quantity);
   }
+
+  // Add to cart Function
   //Event Emiter
   @Output() newCartProductEvent: EventEmitter<IProduct[]> = new EventEmitter<IProduct[]>();
-  // Cart Function Handling
   cartProduct: IProduct[] = [];
   cartQuantity: any[] = [{
     id: 0,
@@ -148,10 +156,22 @@ export class ContentComponent implements OnInit {
     this.newCartProductEvent.emit(this.cartProduct);
     this.newCartQuantityEvent.emit(this.cartQuantity)
   }
+
+  // Navigate to Product Details
   goToDetail(id: number) {
-    this.prdService.checkProductId(id)
-      ? this.router.navigate(['/group/prd', id])
-      : this.router.navigate(['**']);
+    // this.prdService.checkProductId(id)
+    //   ? this.router.navigate(['/group/prd', id])
+    //   : this.router.navigate(['**']);
+    this.prdApiService.getProductByIdAPI(id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.router.navigate(['/group/prd', id]);
+      },
+      error: (err) => {
+        console.log(`Product not found: ${err}`);
+        this.router.navigate(['']);
+      },
+    });
   }
 
 }

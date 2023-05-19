@@ -10,7 +10,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { IndexComponent } from './Components/index/index.component';
 import { ContentComponent } from './Components/content/content.component';
 import { PShadowDirective } from './directives/p-shadow.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreditFormat } from './Custom pipe/credit-format';
 import { MainContentComponent } from './Components/main-content/main-content.component';
 import { CartTableComponent } from './Components/cart-table/cart-table.component';
@@ -45,6 +45,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

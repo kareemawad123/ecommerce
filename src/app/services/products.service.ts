@@ -141,7 +141,10 @@ export class ProductsService {
      return this.productList;
    }
    getOneProduct(id:number): IProduct | undefined {
-     return this.productList.find(p => p.id === id);
+    console.log('id: '+id);
+    console.log(this.productList);
+
+     return this.productList.find(p => p.id == id);
    }
   //  getProductsByCatId(id:number): IProduct[] | undefined {
   //    return this.productList.filter(p=> p.categoryId.id == id);

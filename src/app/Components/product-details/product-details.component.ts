@@ -11,31 +11,43 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  constructor(private prdService: ProductsService, private activeRoute: ActivatedRoute, private catApiService: CategoryAPIService
-    , private router: Router,private prdApiService: ProductsWithApiService) {
-
-  }
   prdId: number = 0;
   currentIndex: number = 0;
   product?: IProduct;
   arrOfProductIds: number[] = [];
+
+  // constructor function
+  constructor(private prdService: ProductsService, private activeRoute: ActivatedRoute, private catApiService: CategoryAPIService
+    , private router: Router, private prdApiService: ProductsWithApiService) {
+  }
+
+  // on initialize page load
   ngOnInit(): void {
+    // // get  product id from url
     this.activeRoute.paramMap.subscribe(params => {
       this.prdId = Number(params.get('id'));
-      this.product = this.prdService.getOneProduct(this.prdId);
       console.log(this.prdId);
-      console.log(this.product);
-    })
-    // let prd = this.prdService.getProductsByCatId(1);
-    // console.log(prd);
+      // get spcific product
+      this.prdApiService.getProductByIdAPI(this.prdId).subscribe({
+        next: (prd)=>{
+          this.prdId = prd.id;
+          this.product = prd;
+          console.log("product id: " + this.prdId);
+        },
+        error: (err)=>{
+          console.log("product not found: " +err);
+          this.router.navigate(['page-not-found']);
+        }
+      });
+    });
 
-    // console.log(this.prdApiService.arrOfProductIds);
-    // console.log(this.prdService.getOneProduct(this.prdId));
 
+
+    // get all products ids
     this.prdApiService.getAllProductsAPI().subscribe({
       next: (data) => {
         // console.log(data);
-        this.arrOfProductIds = data.map((product) =>{
+        this.arrOfProductIds = data.map((product) => {
           return product.id;
         });
         console.log(this.arrOfProductIds);
@@ -44,33 +56,44 @@ export class ProductDetailsComponent implements OnInit {
         console.log(`Get CAT From API Error: ${err}`);
       }
     })
-    // console.log(this.arrOfProductIds);
-  }
+  };
 
-  getCatName(number: number): string {
-    return this.catApiService.getCategoryName(number)
-  }
+  // get product category name
+  // getCatName(number: number): string {
+  //   return this.catApiService?.getCategoryName(number)
+  // };
 
+  // get previous product
   goToPreviousProduct() {
+    console.log("Go:" + this.arrOfProductIds[0]);
+
     this.currentIndex = this.arrOfProductIds.indexOf(this.prdId);
     if (this.currentIndex > 0) {
       this.prdId = this.arrOfProductIds[this.currentIndex - 1];
       this.router.navigate(['/group/prd', this.prdId])
     }
-  }
+  };
+
+  // get next product
   goToNextProduct() {
     this.currentIndex = this.arrOfProductIds.indexOf(this.prdId);
     if (this.currentIndex < this.arrOfProductIds.length - 1) {
       this.prdId = this.arrOfProductIds[this.currentIndex + 1];
       this.router.navigate(['/group/prd', this.prdId])
     }
-  }
+  };
+
+  // go to back page
   goBack() {
     this.router.navigate(["/group/Home"]);
 
-  }
+  };
+
+  // add to cart function
   addToCart(): void {
-  }
+  };
+
+  // shop now function
   shopNow(): void {
   }
 
