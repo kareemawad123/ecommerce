@@ -1,6 +1,18 @@
 # EcommerceProject
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Project with angular e-commerce contain ( Products - Product details - Admin dashboard - User )
+
+## Products
+![image](https://github.com/kareemawad123/ecommerce/assets/106269253/78ef04f2-80be-4232-88e6-497e81fe8ae8)
+
+## Product details
+![image](https://github.com/kareemawad123/ecommerce/assets/106269253/79a5435c-8a76-42cc-a9a9-42f32ed626b2)
+
+## Admin dashboard
+![image](https://github.com/kareemawad123/ecommerce/assets/106269253/5fe438cb-94a2-464e-bcaa-668634f26225)
+
+## User
+Under constructions -- 
 
 ## Development server
 
@@ -22,7 +34,4 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-![image](https://github.com/kareemawad123/ecommerce/assets/106269253/5fe438cb-94a2-464e-bcaa-668634f26225)
