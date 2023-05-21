@@ -1,28 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICategory } from 'src/app/Models/icategory';
 import { IProduct } from 'src/app/Models/iproduct';
 import { ProductsWithApiService } from 'src/app/services/products-with-api.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoryAPIService } from 'src/app/services/category-api.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-main-content',
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss']
 })
-export class MainContentComponent implements OnInit{
+export class MainContentComponent implements OnInit, OnDestroy {
+  subscriptions?: Subscription;
   constructor(private prdService: ProductsService, private prdApiService: ProductsWithApiService,private catApiService: CategoryAPIService) {
-
+    this.subscriptions = new Subscription();
+  }
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
   }
   ngOnInit(): void {
-    this.catApiService.getAllCategoriesAPI().subscribe({
+    this.subscriptions?.add(this.catApiService.getAllCategoriesAPI().subscribe({
       next: (data) => {
         this.category = data;
       },
       error: (err) => {
         console.log(`Get CAT From API Error: ${err}`);
       }
-    });
+    }));
   }
   // Filter
   filterdValue: number = 0;

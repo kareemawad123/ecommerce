@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { IProduct } from '../Models/iproduct';
 import { environment } from '../../environments/environment.development';
 import { ICategory } from '../Models/icategory';
@@ -8,14 +8,18 @@ import { ICategory } from '../Models/icategory';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsWithApiService implements OnInit {
+export class ProductsWithApiService implements OnInit, OnDestroy {
   arrOfProductIds: number[] = []
-
+  subscriptions?: Subscription;
   // Constructor function
   constructor(private httpClient: HttpClient) {
     this.arrOfProductIds = this.getAllProdustsIds();
     // console.log("Ids: " + this.arrOfProductIds);
+    this.subscriptions = new Subscription();
 
+  }
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
   }
 
   // initialize on reload
@@ -31,7 +35,7 @@ export class ProductsWithApiService implements OnInit {
   // get all products ids
   getAllProdustsIds(): number[] {
     let arrOfProductIdsfun: number[] = [];
-    this.getAllProductsAPI().subscribe({
+    this.subscriptions?.add(this.getAllProductsAPI().subscribe({
       next: (data) => {
         // console.log(data);
         arrOfProductIdsfun = data.map((product) => {
@@ -42,7 +46,7 @@ export class ProductsWithApiService implements OnInit {
       error: (err) => {
         console.log(`Get CAT From API Error: ${err}`);
       }
-    })
+    }))
     // console.log("funID:"+arrOfProductIdsfun);
 
     return arrOfProductIdsfun;

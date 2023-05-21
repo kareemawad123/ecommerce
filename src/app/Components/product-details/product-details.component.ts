@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { IProduct } from 'src/app/Models/iproduct';
 import { CategoryAPIService } from 'src/app/services/category-api.service';
 import { ProductsWithApiService } from 'src/app/services/products-with-api.service';
@@ -10,21 +11,25 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   prdId: number = 0;
   currentIndex: number = 0;
   product?: IProduct;
   arrOfProductIds: number[] = [];
-
+  subscriptions?: Subscription;
   // constructor function
   constructor(private prdService: ProductsService, private activeRoute: ActivatedRoute, private catApiService: CategoryAPIService
     , private router: Router, private prdApiService: ProductsWithApiService) {
+      this.subscriptions = new Subscription();
+  }
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
   }
 
   // on initialize page load
   ngOnInit(): void {
     // // get  product id from url
-    this.activeRoute.paramMap.subscribe(params => {
+    this.subscriptions?.add(this.activeRoute.paramMap.subscribe(params => {
       this.prdId = Number(params.get('id'));
       console.log(this.prdId);
       // get spcific product
@@ -39,12 +44,12 @@ export class ProductDetailsComponent implements OnInit {
           this.router.navigate(['page-not-found']);
         }
       });
-    });
+    }));
 
 
 
     // get all products ids
-    this.prdApiService.getAllProductsAPI().subscribe({
+    this.subscriptions?.add(this.prdApiService.getAllProductsAPI().subscribe({
       next: (data) => {
         // console.log(data);
         this.arrOfProductIds = data.map((product) => {
@@ -55,7 +60,7 @@ export class ProductDetailsComponent implements OnInit {
       error: (err) => {
         console.log(`Get CAT From API Error: ${err}`);
       }
-    })
+    }))
   };
 
   // get product category name

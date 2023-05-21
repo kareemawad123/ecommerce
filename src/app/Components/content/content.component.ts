@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostListener, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs/internal/Subscription';
 // import { DiscountOffers } from 'src/app/Models/discount-offers';
 import { ICategory } from 'src/app/Models/icategory';
 import { IProduct } from 'src/app/Models/iproduct';
@@ -15,15 +16,15 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss']
 })
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, OnDestroy {
   productList: IProduct[] = [];
   category: ICategory[] = [];
   filterProduct: IProduct[] = [];
   clientName: string = "Kareem SmeTh";
-
+  subscriptions?: Subscription;
   ngOnInit(): void {
     // this.filterProduct = this.prdService.productList;
-    this.prdApiService.getAllProductsAPI().subscribe({
+    this.subscriptions?.add(this.prdApiService.getAllProductsAPI().subscribe({
       next: (data) => {
         this.productList = data;
         this.filterProduct = this.productList;
@@ -31,18 +32,29 @@ export class ContentComponent implements OnInit {
       error: (err) => {
         console.log(`Get Products From API Error: ${err}`);
       }
-    });
-    this.catApiService.getAllCategoriesAPI().subscribe({
+    }));
+    // this.subscriber.push(this.subs);
+    this.subscriptions?.add(this.catApiService.getAllCategoriesAPI().subscribe({
       next: (data) => {
         this.category = data;
       },
       error: (err) => {
         console.log(`Get CAT From API Error: ${err}`);
       }
-    });
+    }));
+    // this.subscriber.push(this.subs);
+    console.log(this.subscriptions);
+    // console.log("Content: "+this.subscriber.length);
+
   }
   constructor(private prdService: ProductsService, private cart: CartServiceService, private catApiService: CategoryAPIService,
     private router: Router, private prdApiService: ProductsWithApiService, private httpClient: HttpClient) {
+      this.subscriptions = new Subscription();
+  }
+  ngOnDestroy(): void {
+    console.log(this.subscriptions);
+
+    this.subscriptions?.unsubscribe()
   }
 
   //Filter by price from parent
@@ -159,10 +171,7 @@ export class ContentComponent implements OnInit {
 
   // Navigate to Product Details
   goToDetail(id: number) {
-    // this.prdService.checkProductId(id)
-    //   ? this.router.navigate(['/group/prd', id])
-    //   : this.router.navigate(['**']);
-    this.prdApiService.getProductByIdAPI(id).subscribe({
+    this.subscriptions?.add(this.prdApiService.getProductByIdAPI(id).subscribe({
       next: (data) => {
         console.log(data);
         this.router.navigate(['/group/prd', id]);
@@ -171,7 +180,7 @@ export class ContentComponent implements OnInit {
         console.log(`Product not found: ${err}`);
         this.router.navigate(['']);
       },
-    });
+    }));
   }
 
 }
