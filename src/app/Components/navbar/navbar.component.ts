@@ -1,4 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserAuthenService } from 'src/app/services/user-authen.service';
 
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
       this.user = stutas;
     })
   }
-  constructor(private userAuth: UserAuthenService){
+  constructor(private userAuth: UserAuthenService, private router: Router){
 
   }
   creditNumber: string = '';
@@ -24,6 +25,8 @@ export class NavbarComponent implements OnInit {
     this.userAuth.login("kareemawad120@gmail.com",'123456');
   }
   logoutFunc(){
+    alert('thanks for browsing');
+    this.router.navigate(['/login']);
     this.userAuth.logout();
   }
   userStatusChangeWithObs():Observable<boolean>{

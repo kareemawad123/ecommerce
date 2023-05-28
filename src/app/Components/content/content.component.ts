@@ -17,9 +17,9 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit, OnDestroy {
-  productList: IProduct[] = [];
+  productList: IProduct[] = []; // Store Product From API
   category: ICategory[] = [];
-  filterProduct: IProduct[] = [];
+  filterProduct: IProduct[] = []; // Present Product In Component
   clientName: string = "Kareem SmeTh";
   subscriptions?: Subscription;
   ngOnInit(): void {
